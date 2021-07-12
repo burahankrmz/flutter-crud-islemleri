@@ -89,16 +89,18 @@ class _SqfliteIslemleriState extends State<SqfliteIslemleri> {
                   color: Colors.green,
                 ),
                 RaisedButton(
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _ogrenciGuncelle(
-                        Ogrenci.withID(tiklanilanID, _controller.text,
-                            aktiflik == true ? 1 : 0),
-                      );
-                    }
-                  },
                   child: Text("Güncelle"),
                   color: Colors.yellow,
+                  onPressed: tiklanilanID == null
+                      ? null
+                      : () {
+                          if (_formKey.currentState.validate()) {
+                            _ogrenciGuncelle(
+                              Ogrenci.withID(tiklanilanID, _controller.text,
+                                  aktiflik == true ? 1 : 0),
+                            );
+                          }
+                        },
                 ),
                 RaisedButton(
                   onPressed: () {
@@ -173,6 +175,7 @@ class _SqfliteIslemleriState extends State<SqfliteIslemleri> {
         tumOgrencilerListesi.clear();
       });
     }
+    tiklanilanID = null;
   }
 
   void _ogrenciSil(int id, int index) async {
@@ -195,6 +198,7 @@ class _SqfliteIslemleriState extends State<SqfliteIslemleri> {
         ),
       );
     }
+    tiklanilanID = null;
   }
 
   void _ogrenciGuncelle(Ogrenci ogrenci) async {
